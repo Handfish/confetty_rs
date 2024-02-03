@@ -1,4 +1,4 @@
-use nalgebra::Vector3;
+use nalgebra::Vector2;
 
 pub const TICK_RATE_IN_MILI: u64 = 33;
 
@@ -13,7 +13,7 @@ pub const NUM_PARTICLES: usize = 75;
 pub static CHARACTERS: [&str; 6] = ["█", "▓", "▒", "░", "▄", "▀"];
 
 #[allow(dead_code)]
-pub const TERMINAL_GRAVITY: Vector3<f64> = Vector3::new(0.0, 9.81, 0.0);
+pub const TERMINAL_GRAVITY: Vector2<f64> = Vector2::new(0.0, 9.81);
 
 //
 // pub const GRAVITY: Vector3<f64> = Vector3::new(0.0, -9.81, 0.0);

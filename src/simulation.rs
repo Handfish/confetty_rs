@@ -1,6 +1,6 @@
 use crate::consts::{CHARACTERS, FRAMES_PER_SECOND, NUM_PARTICLES, TERMINAL_GRAVITY};
 use crate::projectile::Projectile;
-use nalgebra::{Point3, Vector3};
+use nalgebra::{Point2, Vector2};
 use rand::seq::SliceRandom;
 use ratatui::layout::Rect;
 use ratatui::prelude::*;
@@ -43,15 +43,10 @@ impl Particle {
 
         let physics = Projectile::new(
             1.0 / FRAMES_PER_SECOND,
-            Point3::new(
-                x + (width as f64 / 4.0 * (rand::random::<f64>() - 0.5)),
-                y,
-                0.0,
-            ),
-            Vector3::new(
+            Point2::new(x + (width as f64 / 4.0 * (rand::random::<f64>() - 0.5)), y),
+            Vector2::new(
                 (rand::random::<f64>() - 0.5) * 100.0,
                 rand::random::<f64>() * 50.0,
-                0.0,
             ),
             TERMINAL_GRAVITY,
         );
