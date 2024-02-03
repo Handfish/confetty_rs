@@ -11,13 +11,13 @@ pub const FRAMES_PER_SECOND: f64 = 1000.0 / TICK_RATE_IN_MILI as f64;
 pub const NUM_PARTICLES: usize = 75;
 
 #[allow(dead_code)]
-pub static CHARACTERS: [char; 6] = ['█', '▓', '▒', '░', '▄', '▀'];
+pub const CHARACTERS: [char; 6] = ['█', '▓', '▒', '░', '▄', '▀'];
 
 #[allow(dead_code)]
 pub const TERMINAL_GRAVITY: Vector2<f64> = Vector2::new(0.0, 9.81);
 
 #[allow(dead_code)]
-pub static COLORS: [Color; 5] = [
+pub const COLORS: [Color; 5] = [
     Color::Rgb(168, 100, 253), // #a864fd
     Color::Rgb(41, 205, 255),  // #29cdff
     Color::Rgb(120, 255, 68),  // #78ff44
