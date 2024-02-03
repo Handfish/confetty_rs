@@ -1,0 +1,13 @@
+[package]
+name = "confetty_rs"
+version = "0.1.0"
+authors = ["Ken Udovic - github.com/Handfish"]
+license = "MIT"
+edition = "2021"
+
+[dependencies]
+crossterm = "0.27.0"
+nalgebra = "0.32.3"
+rand = "0.8.5"
+rapier2d = "0.17.2"
+ratatui = "0.26.0-alpha.3"
