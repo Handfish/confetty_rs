@@ -1,17 +1,9 @@
-use crate::consts::{CHARACTERS, FRAMES_PER_SECOND, NUM_PARTICLES, TERMINAL_GRAVITY};
+use crate::consts::{CHARACTERS, COLORS, FRAMES_PER_SECOND, NUM_PARTICLES, TERMINAL_GRAVITY};
 use crate::projectile::Projectile;
 use nalgebra::{Point2, Vector2};
 use rand::seq::SliceRandom;
 use ratatui::layout::Rect;
 use ratatui::prelude::*;
-
-pub static COLORS: [Color; 5] = [
-    Color::Rgb(168, 100, 253), // #a864fd
-    Color::Rgb(41, 205, 255),  // #29cdff
-    Color::Rgb(120, 255, 68),  // #78ff44
-    Color::Rgb(255, 113, 141), // #ff718d
-    Color::Rgb(253, 255, 106), // #fdff6a
-];
 
 #[derive(Debug)]
 pub struct Particle {
