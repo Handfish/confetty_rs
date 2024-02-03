@@ -10,7 +10,7 @@ pub const FRAMES_PER_SECOND: f64 = 1000.0 / TICK_RATE_IN_MILI as f64;
 pub const NUM_PARTICLES: usize = 75;
 
 #[allow(dead_code)]
-pub static CHARACTERS: [&str; 6] = ["█", "▓", "▒", "░", "▄", "▀"];
+pub static CHARACTERS: [char; 6] = ['█', '▓', '▒', '░', '▄', '▀'];
 
 #[allow(dead_code)]
 pub const TERMINAL_GRAVITY: Vector2<f64> = Vector2::new(0.0, 9.81);

@@ -15,7 +15,7 @@ pub static COLORS: [Color; 5] = [
 
 #[derive(Debug)]
 pub struct Particle {
-    char: String,
+    char: char,
     color: Color,
     physics: Projectile,
     // Unused
@@ -27,9 +27,9 @@ pub struct Particle {
 }
 
 // Sample a random element from the array
-fn sample_character() -> &'static str {
+fn sample_character() -> &'static char {
     let mut rng = rand::thread_rng();
-    *CHARACTERS.choose(&mut rng).unwrap_or(&CHARACTERS[0])
+    CHARACTERS.choose(&mut rng).unwrap_or(&CHARACTERS[0])
 }
 fn sample_color() -> Color {
     let mut rng = rand::thread_rng();
@@ -51,7 +51,7 @@ impl Particle {
             TERMINAL_GRAVITY,
         );
 
-        let char = sample_character().to_string();
+        let char = *sample_character();
         let color = sample_color();
 
         Particle {
@@ -128,7 +128,7 @@ impl StatefulWidget for System {
             }
 
             let cell = buf.get_mut(pos.x.floor() as u16, pos.y.floor() as u16);
-            cell.set_char(particle.char.chars().next().unwrap_or(' ')); // Set the character
+            cell.set_char(particle.char); // Set the character
             cell.fg = particle.color;
         }
 
