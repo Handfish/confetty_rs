@@ -54,12 +54,9 @@ impl App {
     }
 
     pub fn spawn_particles(&mut self) {
-        if let Some(res) = self
+        self.num_particles += self
             .simulation_state
             .spawn_particles(self.area.width as usize)
-        {
-            self.num_particles += res;
-        }
     }
 
     pub fn get_simulation_state(&mut self) -> &mut SimulationState {

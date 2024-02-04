@@ -74,12 +74,12 @@ impl SimulationState {
         }
     }
 
-    pub fn spawn_particles(&mut self, width: usize) -> Option<usize> {
+    pub fn spawn_particles(&mut self, width: usize) -> usize {
         for _ in 0..NUM_PARTICLES {
             let particle = Particle::new(width);
             self.particles.push(particle);
         }
-        Some(NUM_PARTICLES)
+        NUM_PARTICLES
     }
 
     pub fn remove_indices_from_particles(&mut self, i: Vec<usize>) {
