@@ -15,7 +15,7 @@ pub struct Particle {
     // hidden: Option<bool>,
     // tail_char: Option<String>,
     // shooting: Option<bool>,
-    // explosion_call: fn(&'static str, f64, f64, usize, usize) -> Vec<Particle>,
+    // explosion_call: fn(&'static str, f32, f32, usize, usize) -> Vec<Particle>,
 }
 
 // Sample a random element from the array
@@ -30,15 +30,15 @@ fn sample_color() -> Color {
 
 impl Particle {
     fn new(width: usize) -> Self {
-        let x = width as f64 / 2.0;
+        let x = width as f32 / 2.0;
         let y = 0.0;
 
         let physics = Projectile::new(
             1.0 / FRAMES_PER_SECOND,
-            Point2::new(x + (width as f64 / 4.0 * (rand::random::<f64>() - 0.5)), y),
+            Point2::new(x + (width as f32 / 4.0 * (rand::random::<f32>() - 0.5)), y),
             Vector2::new(
-                (rand::random::<f64>() - 0.5) * 100.0,
-                rand::random::<f64>() * 50.0,
+                (rand::random::<f32>() - 0.5) * 100.0,
+                rand::random::<f32>() * 50.0,
             ),
             TERMINAL_GRAVITY,
         );
@@ -111,9 +111,9 @@ impl StatefulWidget for System {
             let pos = particle.physics.position();
 
             if pos.x < 0.0
-                || pos.x >= area.width as f64
+                || pos.x >= area.width as f32
                 || pos.y < 0.0
-                || pos.y >= area.height as f64
+                || pos.y >= area.height as f32
             {
                 indices_to_remove.push(index);
                 continue;

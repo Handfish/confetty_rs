@@ -4,10 +4,10 @@ use nalgebra::{Point2, Vector2};
 // a plane, an acceleration, and velocity.
 #[derive(Debug, Clone, Copy)]
 pub struct Projectile {
-    pos: Point2<f64>,
-    vel: Vector2<f64>,
-    acc: Vector2<f64>,
-    delta_time: f64,
+    pos: Point2<f32>,
+    vel: Vector2<f32>,
+    acc: Vector2<f32>,
+    delta_time: f32,
 }
 
 // NewProjectile creates a new projectile. It accepts a frame rate and initial
@@ -15,10 +15,10 @@ pub struct Projectile {
 // projectile.
 impl Projectile {
     pub fn new(
-        delta_time: f64,
-        initial_position: Point2<f64>,
-        initial_velocity: Vector2<f64>,
-        initial_acceleration: Vector2<f64>,
+        delta_time: f32,
+        initial_position: Point2<f32>,
+        initial_velocity: Vector2<f32>,
+        initial_acceleration: Vector2<f32>,
     ) -> Projectile {
         Projectile {
             pos: initial_position,
@@ -30,7 +30,7 @@ impl Projectile {
 
     // Update updates the position and velocity values for the given projectile.
     // Call this after calling NewProjectile to update values.
-    pub fn update(&mut self) -> Point2<f64> {
+    pub fn update(&mut self) -> Point2<f32> {
         self.pos.x += self.vel.x * self.delta_time;
         self.pos.y += self.vel.y * self.delta_time;
 
@@ -41,17 +41,17 @@ impl Projectile {
     }
 
     // Position returns the position of the projectile.
-    pub fn position(&self) -> Point2<f64> {
+    pub fn position(&self) -> Point2<f32> {
         self.pos
     }
 
     // Velocity returns the velocity of the projectile.
-    pub fn velocity(&self) -> Vector2<f64> {
+    pub fn velocity(&self) -> Vector2<f32> {
         self.vel
     }
 
     // Acceleration returns the acceleration of the projectile.
-    pub fn acceleration(&self) -> Vector2<f64> {
+    pub fn acceleration(&self) -> Vector2<f32> {
         self.acc
     }
 }
