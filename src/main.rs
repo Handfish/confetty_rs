@@ -15,14 +15,14 @@ use std::io;
 struct Args {
     /// Name of the person to greet
     #[arg(short, long)]
-    name: String,
+    name: Option<String>,
 }
 
 fn main() -> AppResult<()> {
     let args = Args::parse();
 
     // Get the value of the state argument, if provided
-    let mut name = args.name;
+    let mut name = args.name.unwrap_or_default();
 
     if name.is_empty() {
         name = String::from("confetti");
