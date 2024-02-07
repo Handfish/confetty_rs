@@ -12,12 +12,11 @@ const NUM_PARTICLES: usize = 50;
 
 #[derive(Debug)]
 pub struct Particle {
-    char: char,
-    color: Color,
-    physics: Projectile,
-    shooting: bool,
-    tail_char: Option<char>,
-    // explosion_call: fn(&'static str, f32, f32, usize, usize) -> Vec<Particle>,
+    pub char: char,
+    pub color: Color,
+    pub physics: Projectile,
+    pub shooting: bool,
+    pub tail_char: Option<char>,
 }
 
 // Sample a random element from the array
@@ -77,11 +76,11 @@ impl Particle {
 }
 
 #[derive(Debug)]
-pub struct SimulationState {
-    particles: Vec<Particle>,
+pub struct SimulationStateFireworks {
+    pub particles: Vec<Particle>,
 }
 
-impl SimulationState {
+impl SimulationStateFireworks {
     pub fn new() -> Self {
         Self { particles: vec![] }
     }
@@ -116,19 +115,19 @@ impl SimulationState {
 
 #[derive(Debug)]
 pub struct System {
-    pub state: SimulationState,
+    pub state: SimulationStateFireworks,
 }
 
 impl System {
     pub fn new() -> Self {
         Self {
-            state: SimulationState::new(),
+            state: SimulationStateFireworks::new(),
         }
     }
 }
 
 impl StatefulWidget for System {
-    type State = SimulationState;
+    type State = SimulationStateFireworks;
 
     fn render(self, area: Rect, buf: &mut Buffer, state: &mut Self::State) {
         let mut indices_to_remove = vec![];

@@ -16,10 +16,13 @@ pub mod handler;
 /// Projectile Physics.
 pub mod projectile;
 
-/// Simulation Physics.
-pub mod simulation;
+// Stateful Widget
+pub mod system;
 
-/// Simulation Physics.
+/// Confetti Simulation.
+pub mod simulation_confetti;
+
+/// Fireworks Simulation.
 pub mod simulation_fireworks;
 
 /// Constants.

@@ -7,15 +7,9 @@ use ratatui::prelude::*;
 
 #[derive(Debug)]
 pub struct Particle {
-    char: char,
-    color: Color,
-    physics: Projectile,
-    // Unused
-    // Fireworks app
-    // hidden: Option<bool>,
-    // tail_char: Option<String>,
-    // shooting: Option<bool>,
-    // explosion_call: fn(&'static str, f32, f32, usize, usize) -> Vec<Particle>,
+    pub char: char,
+    pub color: Color,
+    pub physics: Projectile,
 }
 
 // Sample a random element from the array
@@ -50,20 +44,16 @@ impl Particle {
             char,
             color,
             physics,
-            // hidden: None,
-            // shooting: None,
-            // tail_char: None,
-            // explosion_call: Particle::explosion,
         }
     }
 }
 
 #[derive(Debug)]
-pub struct SimulationState {
-    particles: Vec<Particle>,
+pub struct SimulationStateConfetti {
+    pub particles: Vec<Particle>,
 }
 
-impl SimulationState {
+impl SimulationStateConfetti {
     pub fn new() -> Self {
         Self { particles: vec![] }
     }
@@ -91,19 +81,19 @@ impl SimulationState {
 
 #[derive(Debug)]
 pub struct System {
-    pub state: SimulationState,
+    pub state: SimulationStateConfetti,
 }
 
 impl System {
     pub fn new() -> Self {
         Self {
-            state: SimulationState::new(),
+            state: SimulationStateConfetti::new(),
         }
     }
 }
 
 impl StatefulWidget for System {
-    type State = SimulationState;
+    type State = SimulationStateConfetti;
 
     fn render(self, area: Rect, buf: &mut Buffer, state: &mut Self::State) {
         let mut indices_to_remove = vec![];

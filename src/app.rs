@@ -1,4 +1,6 @@
-use crate::simulation_fireworks::SimulationState;
+use crate::simulation_confetti::SimulationStateConfetti;
+use crate::simulation_fireworks::SimulationStateFireworks;
+use crate::system::AppSimulation;
 use ratatui::layout::Rect;
 use std::error;
 
@@ -13,7 +15,7 @@ pub struct App {
 
     pub area: Rect,
 
-    pub simulation_state: SimulationState,
+    pub state: AppSimulation,
 
     pub num_particles: usize,
 }
@@ -23,7 +25,7 @@ impl Default for App {
         Self {
             running: true,
             area: Rect::new(0, 0, 0, 0),
-            simulation_state: SimulationState::new(),
+            state: AppSimulation::Confetti(SimulationStateConfetti::new()), // Default to Fireworks
             num_particles: 0,
         }
     }
@@ -35,9 +37,20 @@ impl App {
         Self::default()
     }
 
+    pub fn fireworks() -> Self {
+        Self {
+            running: true,
+            area: Rect::new(0, 0, 0, 0),
+            state: AppSimulation::Fireworks(SimulationStateFireworks::new()), // Default to Fireworks
+            num_particles: 0,
+        }
+    }
     /// Handles the tick event of the terminal.
     pub fn tick(&mut self) {
-        self.simulation_state.tick();
+        match &mut self.state {
+            AppSimulation::Confetti(state) => state.tick(),
+            AppSimulation::Fireworks(state) => state.tick(),
+        }
     }
 
     /// Set running to false to quit the application.
@@ -54,12 +67,20 @@ impl App {
     }
 
     pub fn spawn_particles(&mut self) {
-        self.num_particles += self
-            .simulation_state
-            .spawn_particles(self.area.width as usize, self.area.height as usize)
+        match &mut self.state {
+            AppSimulation::Confetti(state) => {
+                // Handle Confetti state particles
+                self.num_particles += state.spawn_particles(self.area.width as usize);
+            }
+            AppSimulation::Fireworks(state) => {
+                // Handle Fireworks state particles
+                self.num_particles +=
+                    state.spawn_particles(self.area.width as usize, self.area.height as usize);
+            }
+        }
     }
 
-    pub fn get_simulation_state(&mut self) -> &mut SimulationState {
-        &mut self.simulation_state
+    pub fn get_simulation_state(&mut self) -> &mut AppSimulation {
+        &mut self.state
     }
 }
