@@ -1,4 +1,4 @@
-use crate::simulation::SimulationState;
+use crate::simulation_fireworks::SimulationState;
 use ratatui::layout::Rect;
 use std::error;
 
@@ -56,7 +56,7 @@ impl App {
     pub fn spawn_particles(&mut self) {
         self.num_particles += self
             .simulation_state
-            .spawn_particles(self.area.width as usize)
+            .spawn_particles(self.area.width as usize, self.area.height as usize)
     }
 
     pub fn get_simulation_state(&mut self) -> &mut SimulationState {

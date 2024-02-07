@@ -19,5 +19,8 @@ pub mod projectile;
 /// Simulation Physics.
 pub mod simulation;
 
+/// Simulation Physics.
+pub mod simulation_fireworks;
+
 /// Constants.
 pub mod consts;

@@ -1,4 +1,4 @@
-use crate::simulation::System;
+use crate::simulation_fireworks::System;
 use ratatui::Frame;
 
 use crate::app::App;
