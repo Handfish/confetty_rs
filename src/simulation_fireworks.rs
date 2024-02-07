@@ -2,8 +2,7 @@ use crate::consts::{COLORS, FRAMES_PER_SECOND, TERMINAL_GRAVITY};
 use crate::projectile::Projectile;
 use nalgebra::{Point2, Vector2};
 use rand::seq::SliceRandom;
-use ratatui::layout::Rect;
-use ratatui::prelude::*;
+use ratatui::prelude::Color;
 
 const HEAD: char = '▄';
 const TAIL: char = '│';
@@ -110,67 +109,5 @@ impl SimulationStateFireworks {
         for &index in i.iter().rev() {
             self.particles.swap_remove(index);
         }
-    }
-}
-
-#[derive(Debug)]
-pub struct System {
-    pub state: SimulationStateFireworks,
-}
-
-impl System {
-    pub fn new() -> Self {
-        Self {
-            state: SimulationStateFireworks::new(),
-        }
-    }
-}
-
-impl StatefulWidget for System {
-    type State = SimulationStateFireworks;
-
-    fn render(self, area: Rect, buf: &mut Buffer, state: &mut Self::State) {
-        let mut indices_to_remove = vec![];
-        let mut indices_to_explode = vec![];
-        for (index, particle) in state.particles.iter().enumerate() {
-            let pos = particle.physics.position();
-
-            if pos.x < 0.0 || pos.x >= area.width as f32 || pos.y >= area.height as f32 {
-                indices_to_remove.push(index);
-                continue;
-            } else if particle.shooting && particle.physics.velocity().y > -3.0 {
-                indices_to_explode.push(index);
-                indices_to_remove.push(index);
-                continue;
-            }
-
-            if pos.y.floor() > -1.0 {
-                let cell = buf.get_mut(pos.x.floor() as u16, pos.y.floor() as u16);
-                cell.set_char(particle.char); // Set the character
-                cell.fg = particle.color;
-            }
-
-            if particle.shooting {
-                let l = -particle.physics.velocity().y as isize;
-                for i in 1..l {
-                    let y = pos.y as isize + i;
-                    if y > 0 && y < (area.height - 1) as isize {
-                        let cell = buf.get_mut(pos.x.floor() as u16, y as u16);
-                        cell.set_char(particle.tail_char.unwrap()); // Set the character
-                        cell.fg = particle.color;
-                    }
-                }
-            }
-        }
-
-        for &index in indices_to_explode.iter().rev() {
-            let color = state.particles[index].color;
-            let pos = &state.particles[index].physics.position();
-            let x = pos.x;
-            let y = pos.y;
-            state.spawn_explosion_particles(color, x, y);
-        }
-
-        state.remove_indices_from_particles(indices_to_remove);
     }
 }

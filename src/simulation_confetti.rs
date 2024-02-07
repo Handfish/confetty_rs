@@ -2,8 +2,7 @@ use crate::consts::{CHARACTERS, COLORS, FRAMES_PER_SECOND, NUM_PARTICLES, TERMIN
 use crate::projectile::Projectile;
 use nalgebra::{Point2, Vector2};
 use rand::seq::SliceRandom;
-use ratatui::layout::Rect;
-use ratatui::prelude::*;
+use ratatui::prelude::Color;
 
 #[derive(Debug)]
 pub struct Particle {
@@ -76,44 +75,5 @@ impl SimulationStateConfetti {
         for &index in i.iter().rev() {
             self.particles.swap_remove(index);
         }
-    }
-}
-
-#[derive(Debug)]
-pub struct System {
-    pub state: SimulationStateConfetti,
-}
-
-impl System {
-    pub fn new() -> Self {
-        Self {
-            state: SimulationStateConfetti::new(),
-        }
-    }
-}
-
-impl StatefulWidget for System {
-    type State = SimulationStateConfetti;
-
-    fn render(self, area: Rect, buf: &mut Buffer, state: &mut Self::State) {
-        let mut indices_to_remove = vec![];
-        for (index, particle) in state.particles.iter().enumerate() {
-            let pos = particle.physics.position();
-
-            if pos.x < 0.0
-                || pos.x >= area.width as f32
-                || pos.y < 0.0
-                || pos.y >= area.height as f32
-            {
-                indices_to_remove.push(index);
-                continue;
-            }
-
-            let cell = buf.get_mut(pos.x.floor() as u16, pos.y.floor() as u16);
-            cell.set_char(particle.char); // Set the character
-            cell.fg = particle.color;
-        }
-
-        state.remove_indices_from_particles(indices_to_remove);
     }
 }
