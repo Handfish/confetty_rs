@@ -25,5 +25,8 @@ pub mod simulation_confetti;
 /// Fireworks Simulation.
 pub mod simulation_fireworks;
 
+/// Shooting Star Simulation.
+pub mod simulation_shooting_star;
+
 /// Constants.
 pub mod consts;

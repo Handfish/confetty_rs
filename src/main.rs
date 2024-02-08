@@ -29,6 +29,7 @@ fn main() -> AppResult<()> {
     // Create an application.
     let mut app = match name.as_str() {
         "fireworks" => App::fireworks(),
+        "stars" => App::shooting_star(),
         _ => App::new(),
     };
 

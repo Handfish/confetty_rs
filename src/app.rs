@@ -1,5 +1,6 @@
 use crate::simulation_confetti::SimulationStateConfetti;
 use crate::simulation_fireworks::SimulationStateFireworks;
+use crate::simulation_shooting_star::SimulationStateShootingStar;
 use crate::system::AppSimulation;
 use ratatui::layout::Rect;
 use std::error;
@@ -45,11 +46,21 @@ impl App {
             num_particles: 0,
         }
     }
+
+    pub fn shooting_star() -> Self {
+        Self {
+            running: true,
+            area: Rect::new(0, 0, 0, 0),
+            state: AppSimulation::ShootingStar(SimulationStateShootingStar::new()), // Default to Fireworks
+            num_particles: 0,
+        }
+    }
     /// Handles the tick event of the terminal.
     pub fn tick(&mut self) {
         match &mut self.state {
             AppSimulation::Confetti(state) => state.tick(),
             AppSimulation::Fireworks(state) => state.tick(),
+            AppSimulation::ShootingStar(state) => state.tick(),
         }
     }
 
@@ -73,6 +84,11 @@ impl App {
                 self.num_particles += state.spawn_particles(self.area.width as usize);
             }
             AppSimulation::Fireworks(state) => {
+                // Handle Fireworks state particles
+                self.num_particles +=
+                    state.spawn_particles(self.area.width as usize, self.area.height as usize);
+            }
+            AppSimulation::ShootingStar(state) => {
                 // Handle Fireworks state particles
                 self.num_particles +=
                     state.spawn_particles(self.area.width as usize, self.area.height as usize);

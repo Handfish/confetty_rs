@@ -3,6 +3,7 @@ use ratatui::Frame;
 use crate::app::App;
 use crate::simulation_confetti::SimulationStateConfetti;
 use crate::simulation_fireworks::SimulationStateFireworks;
+use crate::simulation_shooting_star::SimulationStateShootingStar;
 use crate::system::AppSimulation;
 
 /// Renders the user interface widgets.
@@ -24,6 +25,13 @@ pub fn render(app: &mut App, frame: &mut Frame) {
         AppSimulation::Confetti(_) => {
             frame.render_stateful_widget(
                 AppSimulation::Confetti(SimulationStateConfetti::new()),
+                frame.size(),
+                app.get_simulation_state(),
+            );
+        }
+        AppSimulation::ShootingStar(_) => {
+            frame.render_stateful_widget(
+                AppSimulation::ShootingStar(SimulationStateShootingStar::new()),
                 frame.size(),
                 app.get_simulation_state(),
             );
